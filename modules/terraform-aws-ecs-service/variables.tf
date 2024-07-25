@@ -1,63 +1,79 @@
 variable "service_name" {
-  type = string
+  type        = string
+  description = "Name for ECS Service"
 }
 
 variable "cluster_id" {
-  type = string
+  type        = string
+  description = "Cluster ID for ECS Service"
 }
 
 variable "ecs_cluster_launch_type" {
-  type = string
-  default = "FARGATE"
+  type        = string
+  default     = "FARGATE"
+  description = "AWS ECS Launch Types -  Fargate/ECS and External"
 }
 
 variable "assign_public_ip" {
-  type = bool
-  default = false
+  type        = bool
+  default     = false
+  description = "Enable/Disable Public IP for ECS Services"
 }
 
 variable "enable_execute_command" {
-  type = bool
-  default = true
+  type        = bool
+  default     = true
+  description = "Enable ECS Service's Container Execution through CLI"
 }
 
 variable "task_definition_arn" {
-  type = string
+  type        = string
+  description = "AWS ECS Task Definition ARN"
 }
 
 variable "desired_count" {
-  type = number
+  type        = number
+  description = "Desired number of Services count"
 }
 
 variable "minimum_healthy_percent" {
-  type = string
+  type        = string
+  description = "Minimum Health Percent for Each Services"
 }
 
 variable "maximum_percent" {
-  type = string
+  type        = string
+  description = "Maximum Health Percent for Each Services"
 }
 
-variable "container_security_group" {
-
+variable "container_security_group_arn" {
+  type        = string
+  description = "AWS Secuirty Group ARN for Service's Network Configuration"
 }
+
 variable "private_subnet_ids" {
-  type = list(string)
+  type        = list(string)
+  description = "Private Subnet IDs"
 }
 
 variable "target_group_arn" {
-  type = string
+  type        = string
+  description = "AWS Target Group ARN Values to Attach service"
 }
 
 variable "container_name" {
-  type = string
+  type        = string
+  description = "Proper Name ECS Service's Container"
 }
 
 variable "container_port" {
-  type = string
+  type        = string
+  description = "Container Application Expose Port"
 }
 
 variable "service_discovery_arn" {
-  type = string
+  type        = string
+  description = "To Add Inter-Service Communication for each Service"
 }
 
 variable "enable_load_balancer" {
@@ -66,34 +82,13 @@ variable "enable_load_balancer" {
   default     = false
 }
 
-variable "enable_volume_mount" {
-  description = "Boolean flag to enable/disable volume mount"
-  type        = bool
-  default     = false
-}
-
-# variable "volume_name" {
-#   type    = string
-#   default = ""
-# }
-
-# variable "ebs_role_arn" {
-#   type    = string
-#   default = ""
-# }
-
-# variable "ebs_size_in_gb" {
-#   type    = number
-#   default = 0
-# }
-
 variable "tags" {
   type = object({
     environment = string
-    product     = string
   })
   validation {
     condition     = contains(["dev", "beta", "prod"], var.tags.environment)
-    error_message = "invalid tag values"
+    error_message = "Invalid Env Tag Value..."
   }
+  description = "Tag Values based on the Different Environmets"
 }

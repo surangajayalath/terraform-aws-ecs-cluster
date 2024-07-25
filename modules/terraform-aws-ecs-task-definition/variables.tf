@@ -15,7 +15,7 @@ variable "task_cpu" {
 }
 
 variable "task_memory" {
-  type = number 
+  type = number
 }
 
 variable "container_definitions_file_path" {
@@ -23,13 +23,13 @@ variable "container_definitions_file_path" {
 }
 
 variable "network_mode" {
-  type = string
+  type    = string
   default = "awsvpc"
 }
 
 variable "requires_compatibilitiesty" {
-  type = list(string)
-  default     = ["FARGATE"]
+  type    = list(string)
+  default = ["FARGATE"]
 }
 
 # variable "enable_volume_mount" {
@@ -45,10 +45,10 @@ variable "requires_compatibilitiesty" {
 variable "tags" {
   type = object({
     environment = string
-    product = string
   })
   validation {
     condition     = contains(["dev", "beta", "prod"], var.tags.environment)
-    error_message = "invalid tag values"
+    error_message = "Invalid Env Tag Value..."
   }
+  description = "Tag Values based on the Different Environmets"
 }
