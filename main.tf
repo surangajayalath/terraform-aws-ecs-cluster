@@ -1,18 +1,4 @@
-# AWS Elastic Container Service (ECS) Terraform module
-
-Terraform module which creates ECS resources on AWS.
-
-This module focuses purely on ECS and Related services. Therefore only these resources can be created with this module:
-
-- ECS Cluster
-- IAM Permissions
-- AWS Target Groups
-- AWS ECS Services
-- AWS ECS Task Definitions
-- AWS EventBrige Schedules
-
-Usage
-```
+################ AWS ECS Cluster #################
 module "ecs-cluster" {
   source            = "./modules/terraform-aws-ecs-cluster"
   cluster_name      = var.cluster_name
@@ -21,6 +7,7 @@ module "ecs-cluster" {
   tags              = var.tags
 }
 
+################ AWS ECS Cluster Service Task Definition #################
 module "nginx_service_td" {
   source                          = "./modules/terraform-aws-ecs-task-definition"
   family_name                     = "nginx-service-td"
@@ -32,7 +19,7 @@ module "nginx_service_td" {
   container_definitions_file_path = file("ecs-task-definition/nginx-service-td.json")
 }
 
-
+################ AWS ECS Cluster Service #################
 module "nginx_service" {
   source                      = "./modules/terraform-aws-ecs-service"
   desired_count               = 1
@@ -51,7 +38,7 @@ module "nginx_service" {
   tags                        = { environment = "beta" }
 }
 
-
+################ AWS ECS Cluster Service TG #################
 module "nginx_service_tg" {
   source                 = "./modules/terraform-aws-alb-tg"
   target_group_name      = "ecs-nginx-service-tg"
@@ -65,7 +52,7 @@ module "nginx_service_tg" {
   tags                   = { environment = "beta" }
 }
 
-
+################ AWS ECS Cluster Service IAM #################
 module "nginx_service_iam" {
   source                       = "./modules/terraform-aws-iam"
   account_id                   = var.account_id
@@ -77,6 +64,7 @@ module "nginx_service_iam" {
   enable_s3_access_policy      = false
 }
 
+################ AWS ECS Cluster Service Scheduler #################
 module "nginx_service_scheduler" {
   source                       = "./modules/terraform-aws-eventbridge-scheduler"
   scheduler_name               = "nginx-service"
@@ -85,4 +73,3 @@ module "nginx_service_scheduler" {
   ecs_cluster_name             = module.ecs-cluster.cluster_name
   ecs_service_name             = module.nginx_service.service_name
 }
-```

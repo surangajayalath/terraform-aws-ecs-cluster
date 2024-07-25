@@ -4,23 +4,25 @@ Terraform module which creates ECS resources on AWS.
 
 This module focuses purely on ECS and Related services. Therefore only these resources can be created with this module:
 
-- ECS Cluster
-- IAM Permissions
-- AWS Target Groups
 - AWS ECS Services
-- AWS ECS Task Definitions
-- AWS EventBrige Schedules
+
 
 Usage
-```
-module "ecs" {
-  source  = "surangajayalath/ecs-cluster/aws/tree/v1.0.0/"
-  version = "1.0.0"
-  account_id        = var.account_id
-  region            = var.region
-  cluster_name      = var.cluster_name
-  cw_log_group_name = var.cloudwatch_log_group_name
-  kms_key_id        = aws_kms_key.master_kms_key.arn
-  tags              = var.tags
+```module "nginx_service" {
+  source                      = "./modules/terraform-aws-ecs-service"
+  desired_count               = 1
+  minimum_healthy_percent     = 0
+  maximum_percent             = 100
+  container_port              = 8080
+  service_name                = "nginx_service"
+  container_name              = "nginx_service_container"
+  cluster_id                  = module.ecs-cluster.cluster_id
+  private_subnet_ids          = var.private_subnet_ids
+  task_definition_arn         = module.nginx_service_td.task_definition_arn
+  container_security_group_id = [aws_security_group.ecs_container_sg.id]
+  service_discovery_arn       = aws_service_discovery_service.nginx_service_ds.arn
+  enable_load_balancer        = true
+  target_group_arn            = module.nginx_service_tg.tg_arn
+  tags                        = { environment = "beta" }
 }
 ```

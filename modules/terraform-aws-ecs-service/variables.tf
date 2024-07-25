@@ -46,9 +46,9 @@ variable "maximum_percent" {
   description = "Maximum Health Percent for Each Services"
 }
 
-variable "container_security_group_arn" {
-  type        = string
-  description = "AWS Secuirty Group ARN for Service's Network Configuration"
+variable "container_security_group_id" {
+  type        = list(string)
+  description = "AWS Secuirty Group ID for Service's Network Configuration"
 }
 
 variable "private_subnet_ids" {
