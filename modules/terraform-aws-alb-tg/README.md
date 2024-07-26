@@ -2,6 +2,8 @@
 
 This module creates a target group based on the AWS ECS deployed services.
 
+- AWS Target Group
+
 Usage
 ```
 module "anomaly_service_tg" {
