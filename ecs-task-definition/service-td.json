@@ -1,0 +1,43 @@
+[
+  {
+    "essential": true,
+    "name": "nginx_service_container",
+    "cpu": 100,
+    "image": "nginx:latest",
+    "memory": 200,
+    "mountPoints": [],
+    "systemControls": [],
+    "volumesFrom": [],
+    "secrets": [
+      {
+        "name": "API_SECRET",
+        "valueFrom": "arn:aws:secretsmanager:us-west-2:035684368906:secret:nginx/service/beta-rXvtzO:API_SECRET::"
+      }
+    ],
+    "environment": [],
+    "portMappings": [
+      {
+        "containerPort": 8080,
+        "hostPort": 8080,
+        "name": "nginx-service-port",
+        "protocol": "tcp"
+      }
+    ],
+    "logConfiguration": {
+      "logDriver": "awslogs",
+      "options": {
+        "awslogs-group": "ecs/nginx/service",
+        "awslogs-region": "us-west-2",
+        "awslogs-stream-prefix": "ecs-nginx-service-log-stream",
+        "awslogs-create-group": "true"
+      }
+    },
+    "tags": [
+      {
+        "key": "environment",
+        "value": "beta"
+      }
+    ]
+  }
+]
+  

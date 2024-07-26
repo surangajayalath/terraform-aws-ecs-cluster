@@ -1,47 +1,47 @@
 variable "account_id" {
-  type = string
-  description = "AWS Account ID"
+  type        = string
+  description = "AWS Account ID."
 }
 
 variable "region" {
-  type = string
-  description = "AWS Region Name"
+  type        = string
+  description = "AWS Region name."
 }
 
 variable "kms_key_id" {
-  type = string
-  default = "KMS Key ID for Encryptions"
+  type        = string
+  description = "KMS Key ID for encryptions."
 }
 
 variable "ecs_task_execution_role_name" {
-  type = string
-  description = "AWS ECS Task Execution Role Name"
+  type        = string
+  description = "Name of the AWS ECS task execution role."
 }
 
 variable "ecs_task_role_name" {
-  type = string
-  description = "AWS ECS Task Role Name"
+  type        = string
+  description = "Name of the AWS ECS task role."
 }
 
 variable "secret_manager_path" {
-  type = string
-  default = "AWS Secret Manager Path to Grant Access Permission to the IAM Role"
+  type        = string
+  description = "Path in AWS Secrets Manager to grant access permission to the IAM role."
 }
 
 variable "ecs_task_execution_policy_arn" {
-  type = string
-  description = "AWS Managed Task Execution Role Policy"
-  default = "arn:aws:iam::aws:policy/service-role/AmazonECSTaskExecutionRolePolicy"
+  type        = string
+  default     = "arn:aws:iam::aws:policy/service-role/AmazonECSTaskExecutionRolePolicy"
+  description = "ARN of the AWS managed task execution role policy."
 }
 
 variable "enable_s3_access_policy" {
-  description = "Boolean flag to enable/disable s3 policy"
   type        = bool
   default     = false
+  description = "Boolean flag to enable or disable S3 access policy."
 }
 
 variable "s3_bucket_names" {
-  type    = list(string)
-  default = []
-  description = "AWS S3 Bucket name to Grant Access Permission to the IAM Role"
+  type        = list(string)
+  default     = []
+  description = "List of AWS S3 bucket names to grant access permission to the IAM role."
 }

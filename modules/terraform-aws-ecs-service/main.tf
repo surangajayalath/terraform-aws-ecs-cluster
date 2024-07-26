@@ -13,7 +13,7 @@ resource "aws_ecs_service" "service" {
   }
 
   network_configuration {
-    security_groups  = var.container_security_group_id
+    security_groups  = [aws_security_group.container_sg.id]
     subnets          = var.private_subnet_ids
     assign_public_ip = var.assign_public_ip
   }
@@ -35,4 +35,27 @@ resource "aws_ecs_service" "service" {
   }
 
   tags = var.tags
+}
+
+resource "aws_security_group" "container_sg" {
+  name        = var.container_sg_name
+  description = "Security group for ECS task running on Fargate"
+  vpc_id      = var.vpc_id
+  tags        = var.tags
+
+  ingress {
+    description = "Allow all ingress traffic"
+    from_port   = 0
+    to_port     = 0
+    protocol    = -1
+    cidr_blocks = ["0.0.0.0/0"]
+  }
+
+  egress {
+    description = "Allow all egress traffic"
+    from_port   = 0
+    to_port     = 0
+    protocol    = -1
+    cidr_blocks = ["0.0.0.0/0"]
+  }
 }

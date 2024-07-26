@@ -1,5 +1,5 @@
 resource "aws_lb" "public_alb" {
-  name                       = "alb-external"
+  name                       = "alb-dev"
   internal                   = false
   load_balancer_type         = "application"
   security_groups            = [aws_security_group.public_alb_sg.id]
@@ -9,7 +9,7 @@ resource "aws_lb" "public_alb" {
 }
 
 resource "aws_security_group" "public_alb_sg" {
-  name        = "alb-external-sg"
+  name        = "alb-dev-sg"
   description = "External alb security group"
   vpc_id      = var.vpc_id
   tags        = { Component = "Network" }
@@ -31,11 +31,11 @@ resource "aws_security_group" "public_alb_sg" {
   }
 
   egress {
-    description = "Out all traffic to VPC"
+    description = "Out all traffic to internet"
     from_port   = 0
     to_port     = 0
     protocol    = "-1"
-    cidr_blocks = ["10.130.0.0/16"]
+    cidr_blocks = ["0.0.0.0/0"]
   }
 }
 
@@ -77,8 +77,8 @@ resource "aws_lb_listener" "https_listener" {
 
 # acm for alb
 resource "aws_acm_certificate" "cert" {
-  domain_name               = "nginx.example.com"
-  subject_alternative_names = ["www.nginx.example.com"]
+  domain_name               = var.api_domain_name
+  subject_alternative_names = ["www.${var.api_domain_name}"]
   validation_method         = "DNS"
 
   lifecycle {
@@ -100,5 +100,5 @@ resource "aws_route53_record" "cert_dns" {
   records         = [each.value.record]
   ttl             = 60
   type            = each.value.type
-  zone_id         = "HJ018UOV9T0788SJ0Z0M"
+  zone_id         = "HJ018UOV9T0788SJ0Z0M45FG"
 }
