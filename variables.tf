@@ -1,13 +1,3 @@
-variable "account_id" {
-  type        = string
-  description = "The AWS account ID where resources will be created."
-}
-
-variable "region" {
-  type        = string
-  description = "The AWS region where resources will be created."
-}
-
 variable "cluster_name" {
   type        = string
   description = "Name for the ECS cluster."
@@ -34,23 +24,6 @@ variable "cw_retention_in_days" {
   default     = "7"
   description = "CloudWatch log group retention period"
 }
-
-variable "vpc_id" {
-  type        = string
-  description = "The ID of the VPC where resources will be deployed."
-}
-
-variable "public_subnet_ids" {
-  type        = list(string)
-  description = "List of public subnet IDs within the VPC."
-}
-
-variable "api_domain_name" {
-  type        = string
-  description = "The domain name for the API."
-}
-
-
 
 variable "tags" {
   type = object({

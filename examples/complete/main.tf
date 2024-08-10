@@ -2,7 +2,8 @@
 # AWS ECS Cluster Service IAM
 #########################################################################
 module "iam" {
-  source                       = "../../modules/terraform-aws-iam"
+  source                       = "surangajayalath/ecs-cluster/aws//modules/terraform-aws-iam"
+  version                      = "1.0.0"
   account_id                   = var.account_id
   region                       = var.region
   ecs_task_execution_role_name = var.ecs_task_execution_role_name
@@ -16,7 +17,8 @@ module "iam" {
 # AWS ECS Cluster
 #########################################################################
 module "cluster" {
-  source            = "../../modules/terraform-aws-ecs-cluster"
+  source            = "surangajayalath/ecs-cluster/aws"
+  version           = "1.0.0"
   cluster_name      = var.cluster_name
   cw_log_group_name = var.cw_log_group_name
   kms_key_id        = aws_kms_key.master_kms_key.key_id
@@ -27,7 +29,8 @@ module "cluster" {
 # AWS ECS Cluster Service Task Definition
 #########################################################################
 module "td" {
-  source                          = "../../modules/terraform-aws-ecs-task-definition"
+  source                          = "surangajayalath/ecs-cluster/aws//modules/terraform-aws-ecs-task-definition"
+  version                         = "1.0.0"
   family_name                     = var.family_name
   task_execution_role_arn         = module.iam.ecs_task_execution_role_arn
   task_role_arn                   = module.iam.ecs_task_role_arn
@@ -41,7 +44,8 @@ module "td" {
 # AWS ECS Cluster Service
 #########################################################################
 module "service" {
-  source                  = "../../modules/terraform-aws-ecs-service"
+  source                  = "surangajayalath/ecs-cluster/aws//modules/terraform-aws-ecs-service"
+  version                 = "1.0.0"
   vpc_id                  = var.vpc_id
   container_sg_name       = var.container_sg_name
   desired_count           = var.desired_count
@@ -63,7 +67,8 @@ module "service" {
 # AWS ECS Cluster Service's Target Group
 #########################################################################
 module "tg" {
-  source                 = "../../modules/terraform-aws-alb-tg"
+  source                 = "surangajayalath/ecs-cluster/aws//modules/terraform-aws-alb-tg"
+  version                = "1.0.0"
   target_group_name      = var.target_group_name
   target_group_port      = var.target_group_port
   routing_path           = var.routing_path

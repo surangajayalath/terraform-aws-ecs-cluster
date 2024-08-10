@@ -5,8 +5,8 @@ resource "aws_lb" "public_alb" {
   security_groups            = [aws_security_group.public_alb_sg.id]
   subnets                    = var.public_subnet_ids
   enable_deletion_protection = true
-  tags                       = { 
-    component = "network" 
+  tags = {
+    component = "network"
   }
 }
 
@@ -14,8 +14,8 @@ resource "aws_security_group" "public_alb_sg" {
   name        = "alb-dev-sg"
   description = "External alb security group"
   vpc_id      = var.vpc_id
-  tags        = { 
-    component = "network" 
+  tags = {
+    component = "network"
   }
 
   ingress {
@@ -47,8 +47,8 @@ resource "aws_lb_listener" "http_listener" {
   load_balancer_arn = aws_lb.public_alb.arn
   port              = "80"
   protocol          = "HTTP"
-  tags              = { 
-    component = "network" 
+  tags = {
+    component = "network"
   }
 
   default_action {
@@ -68,8 +68,8 @@ resource "aws_lb_listener" "https_listener" {
   protocol          = "HTTPS"
   ssl_policy        = "ELBSecurityPolicy-TLS13-1-2-2021-06"
   certificate_arn   = aws_acm_certificate.cert.arn
-  tags              = { 
-    component = "network" 
+  tags = {
+    component = "network"
   }
 
   default_action {
