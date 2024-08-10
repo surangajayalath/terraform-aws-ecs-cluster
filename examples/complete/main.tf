@@ -3,7 +3,7 @@
 #########################################################################
 module "iam" {
   source                       = "surangajayalath/ecs-cluster/aws//modules/terraform-aws-iam"
-  version                      = "1.0.0"
+  version                      = "1.0.1"
   account_id                   = var.account_id
   region                       = var.region
   ecs_task_execution_role_name = var.ecs_task_execution_role_name
@@ -18,7 +18,7 @@ module "iam" {
 #########################################################################
 module "cluster" {
   source            = "surangajayalath/ecs-cluster/aws"
-  version           = "1.0.0"
+  version           = "1.0.1"
   cluster_name      = var.cluster_name
   cw_log_group_name = var.cw_log_group_name
   kms_key_id        = aws_kms_key.master_kms_key.key_id
@@ -30,7 +30,7 @@ module "cluster" {
 #########################################################################
 module "td" {
   source                          = "surangajayalath/ecs-cluster/aws//modules/terraform-aws-ecs-task-definition"
-  version                         = "1.0.0"
+  version                         = "1.0.1"
   family_name                     = var.family_name
   task_execution_role_arn         = module.iam.ecs_task_execution_role_arn
   task_role_arn                   = module.iam.ecs_task_role_arn
@@ -45,7 +45,7 @@ module "td" {
 #########################################################################
 module "service" {
   source                  = "surangajayalath/ecs-cluster/aws//modules/terraform-aws-ecs-service"
-  version                 = "1.0.0"
+  version                 = "1.0.1"
   vpc_id                  = var.vpc_id
   container_sg_name       = var.container_sg_name
   desired_count           = var.desired_count
@@ -68,7 +68,7 @@ module "service" {
 #########################################################################
 module "tg" {
   source                 = "surangajayalath/ecs-cluster/aws//modules/terraform-aws-alb-tg"
-  version                = "1.0.0"
+  version                = "1.0.1"
   target_group_name      = var.target_group_name
   target_group_port      = var.target_group_port
   routing_path           = var.routing_path

@@ -11,7 +11,7 @@
     "secrets": [
       {
         "name": "API_SECRET",
-        "valueFrom": "arn:aws:secretsmanager:us-west-2:035684368906:secret:nginx/service/beta-rXvtzO:API_SECRET::"
+        "valueFrom": "arn:aws:secretsmanager:us-west-2:035098874368906:secret:nginx/service/beta-rXvtzO:API_SECRET::"
       }
     ],
     "environment": [],

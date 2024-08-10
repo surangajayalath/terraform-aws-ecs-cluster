@@ -10,6 +10,9 @@ This module focuses purely on ECS and Related services. Therefore only these res
 - AWS ECS Services
 - AWS Target Groups
 
+# Diagram
+![alt text](Diagram.png)
+
 Usage
 ```
 #########################################################################
