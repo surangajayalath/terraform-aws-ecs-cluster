@@ -1,18 +1,22 @@
 resource "aws_lb" "public_alb" {
-  name                       = "alb-dev"
+  name                       = "aws-alb"
   internal                   = false
   load_balancer_type         = "application"
   security_groups            = [aws_security_group.public_alb_sg.id]
   subnets                    = var.public_subnet_ids
   enable_deletion_protection = true
-  tags                       = { Component = "Network" }
+  tags                       = { 
+    component = "network" 
+  }
 }
 
 resource "aws_security_group" "public_alb_sg" {
   name        = "alb-dev-sg"
   description = "External alb security group"
   vpc_id      = var.vpc_id
-  tags        = { Component = "Network" }
+  tags        = { 
+    component = "network" 
+  }
 
   ingress {
     description = "HTTPS traffic from internet"
@@ -43,7 +47,9 @@ resource "aws_lb_listener" "http_listener" {
   load_balancer_arn = aws_lb.public_alb.arn
   port              = "80"
   protocol          = "HTTP"
-  tags              = { Component = "Network" }
+  tags              = { 
+    component = "network" 
+  }
 
   default_action {
     type = "redirect"
@@ -62,7 +68,9 @@ resource "aws_lb_listener" "https_listener" {
   protocol          = "HTTPS"
   ssl_policy        = "ELBSecurityPolicy-TLS13-1-2-2021-06"
   certificate_arn   = aws_acm_certificate.cert.arn
-  tags              = { Component = "Network" }
+  tags              = { 
+    component = "network" 
+  }
 
   default_action {
     type = "fixed-response"
@@ -100,5 +108,5 @@ resource "aws_route53_record" "cert_dns" {
   records         = [each.value.record]
   ttl             = 60
   type            = each.value.type
-  zone_id         = "HJ018UOV9T0788SJ0Z0M45FG"
+  zone_id         = aws_route53_zone.primary.zone_id
 }

@@ -7,20 +7,24 @@ Terraform module which creates ECS Service on AWS ECS Cluster.
 Usage
 ```module "nginx_service" {
   source                      = "./modules/terraform-aws-ecs-service"
-  desired_count               = 1
-  minimum_healthy_percent     = 0
+
+  desired_count               = 2
+  minimum_healthy_percent     = 50
   maximum_percent             = 100
   container_port              = 8080
-  service_name                = "nginx_service"
-  container_name              = "nginx_service_container"
-  cluster_id                  = module.ecs-cluster.cluster_id
-  private_subnet_ids          = var.private_subnet_ids
-  task_definition_arn         = module.nginx_service_td.task_definition_arn
-  container_security_group_id = [aws_security_group.ecs_container_sg.id]
-  service_discovery_arn       = aws_service_discovery_service.nginx_service_ds.arn
+  service_name                = "nginx-service"
+  container_name              = "nginx-service-container"
+  cluster_id                  = "arn:aws:ecs:region:aws_account_id:task/task-id"
+  private_subnet_ids          = ["subnet-5678a851de5eexxxx"]
+  task_definition_arn         = "arn:aws:ecs:{region}:{account-id}:task-definition/fargate-task-name:revision-id"
+  container_security_group_id = ["sg-0abcdef1234567890"]
+  service_discovery_arn       = "arn:aws:servicediscovery:{region}:{account-id}:namespace/ns-e3wpefgeejg6kftr"
   enable_load_balancer        = true
-  target_group_arn            = module.nginx_service_tg.tg_arn
-  tags                        = { environment = "beta" }
+  target_group_arn            = "arn:aws:elasticloadbalancing:{region}:{accound-id}:targetgroup/{target-group-id"
+
+  tags                        = { 
+    environment = "beta" 
+  }
 }
 ```
 

@@ -8,13 +8,17 @@ Usage
 ```
 module "nginx_service_td" {
   source                          = "./modules/terraform-aws-ecs-task-definition"
+
   family_name                     = "nginx-service-td"
-  task_execution_role_arn         = module.nginx_service_iam.ecs_task_execution_role_arn
-  task_role_arn                   = module.nginx_service_iam.ecs_task_role_arn
+  task_execution_role_arn         = "arn:aws:iam::{account-id}:role/nginx-task-execution-role"
+  task_role_arn                   = "arn:aws:iam::{account-id}:role/nginx-task-role"
   task_cpu                        = 256
   task_memory                     = 512
-  tags                            = { environment = "beta" }
   container_definitions_file_path = file("ecs-task-definition/nginx-service-td.json")
+
+  tags                        = { 
+    environment = "beta" 
+  }
 }
 ```
 

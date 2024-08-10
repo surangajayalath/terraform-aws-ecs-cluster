@@ -8,13 +8,18 @@ Usage
 ```
 module "nginx_service_iam" {
   source                       = "./modules/terraform-aws-iam"
+
   account_id                   = var.account_id
-  region                       = var.region
+  region                       = "us-west-2"
   ecs_task_execution_role_name = "nginx-task-execution-role"
   ecs_task_role_name           = "nginx-task-role"
-  kms_key_id                   = aws_kms_key.master_kms_key.key_id
+  kms_key_id                   = "arn:aws:kms:us-west-2:111122223333:key/1234abcd-12ab-34cd-56ef-1234567890ab"
   secret_manager_path          = "nginx/service/beta-rXvtzO"
   enable_s3_access_policy      = false
+
+  tags                         = { 
+    environment = "beta" 
+  }
 }
 ```
 

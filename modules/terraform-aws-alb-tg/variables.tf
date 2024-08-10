@@ -23,7 +23,7 @@ variable "alb_listner_priority" {
   description = "Listener priority for ALB HTTPS rules."
 }
 
-variable "domain_name" {
+variable "api_domain_name" {
   type        = string
   description = "Domain name for ALB HTTPS rules."
 }
@@ -40,7 +40,7 @@ variable "health_check_matcher" {
 }
 
 variable "alb_https_listener_arn" {
-  type = string
+  type        = string
   description = "ALB HTTPS Listner ARN"
 }
 

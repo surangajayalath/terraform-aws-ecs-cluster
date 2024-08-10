@@ -8,16 +8,19 @@ Usage
 ```
 module "anomaly_service_tg" {
   source                 = "surangajayalath/ecs-cluster/aws//modules/terraform-aws-alb-tg"
+
   version                = "1.0.2"
-  target_group_name      = "ecs-nginx-service-tg-${terraform.workspace}"
-  target_group_port      = 3000
+  target_group_name      = "ecs-nginx-service-tg"
+  target_group_port      = 8080
   routing_path           = "/api/nginxservice"
   health_check_path      = "/api/nginxservice/healthcheck"
-  alb_https_listener_arn = local.alb_external_https_listener_arn
-  alb_listner_priority   = 90
-  domain_name            = "api.example.com
-  vpc_id                 = var.vpc_id
-  tags                   = tags = { environment = "beta" }
+  alb_https_listener_arn = "arn:aws:elasticloadbalancing:{region}:{account-id}:listener/app/{elb-name}/{elb-id}"
+  alb_listner_priority   = 99
+  domain_name            = "api.example.com"
+  vpc_id                 = "vpc-0dffgs4d73357cvfsz"
+  tags                   = { 
+    environment = "beta"
+  }
 }
 ```
 

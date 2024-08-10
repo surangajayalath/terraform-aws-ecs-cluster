@@ -9,7 +9,6 @@ This module focuses purely on ECS and Related services. Therefore only these res
 - AWS Target Groups
 - AWS ECS Services
 - AWS ECS Task Definitions
-- AWS EventBrige Schedules
 
 Usage
 ```

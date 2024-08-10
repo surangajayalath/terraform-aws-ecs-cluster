@@ -19,6 +19,12 @@ variable "cw_log_group_name" {
   description = "CloudWatch log group name for ECS cluster logs."
 }
 
+variable "cw_retention_in_days" {
+  type        = string
+  default     = "7"
+  description = "CloudWatch log group retention period"
+}
+
 variable "tags" {
   type = object({
     environment = string

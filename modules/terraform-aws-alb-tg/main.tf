@@ -32,7 +32,7 @@ resource "aws_lb_listener_rule" "alb_listener_rule" {
 
   condition {
     host_header {
-      values = ["${var.domain_name}"]
+      values = ["${var.api_domain_name}"]
     }
   }
 

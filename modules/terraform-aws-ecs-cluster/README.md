@@ -8,10 +8,13 @@ Usage
 ```
 module "ecs-cluster" {
   source            = "./modules/terraform-aws-ecs-cluster"
-  cluster_name      = var.cluster_name
+
+  cluster_name      = "aws-ecs-cluster"
   cw_log_group_name = "nginx/ecs/cluster"
-  kms_key_id        = aws_kms_key.master_kms_key.arn
-  tags              = var.tags
+  kms_key_id        = "arn:aws:kms:us-west-2:111122223333:key/1234abcd-12ab-34cd-56ef-1234567890ab"
+  tags              = { 
+    environment = "beta"
+  }
 }
 ```
 
