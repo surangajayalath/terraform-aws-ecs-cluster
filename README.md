@@ -11,7 +11,7 @@ This module focuses purely on ECS and Related services. Therefore only these res
 - AWS Target Groups
 
 # Diagram
-![alt text](Diagram.png)
+![alt text](https://github.com/surangajayalath/terraform-aws-ecs-cluster/blob/v1.0.0/Diagram.png)
 
 Usage
 ```
