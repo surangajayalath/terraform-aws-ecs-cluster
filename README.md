@@ -10,10 +10,6 @@ This module focuses purely on ECS and Related services. Therefore only these res
 - AWS ECS Services
 - AWS Target Groups
 
-# Diagram
-- You can see sample diagram - https://github.com/surangajayalath/terraform-aws-ecs-cluster/blob/v1.0.0/Diagram.png
-
-
 Usage
 ```
 #########################################################################

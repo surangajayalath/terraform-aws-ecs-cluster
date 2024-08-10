@@ -5,7 +5,8 @@ Terraform module which creates ECS Service on AWS ECS Cluster.
 - AWS ECS Services
 
 Usage
-```module "nginx_service" {
+```
+module "nginx_service" {
   source                      = "./modules/terraform-aws-ecs-service"
 
   desired_count               = 2
